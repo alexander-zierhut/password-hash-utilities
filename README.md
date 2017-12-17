@@ -1,6 +1,6 @@
 # passwordHandler
 Stop worring about passwords
 
-You need: https://github.com/planetteamspeak/ts3phpframework
+You need: Standard php wich includes hash()
 
 Check out example.php
