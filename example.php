@@ -14,6 +14,6 @@
   //Check a password using user Input, hash and salt
   //Returns: true for a correct password
   //         false for an incorrect password
-  echo passwordHandler::checkPassword("password123", $pw["hash"], $pw["salt"]) ? 'correct' : 'incorrect';
+  $check = passwordHandler::checkPassword("password123", $pw["hash"], $pw["salt"]);
 
 ?>
