@@ -6,7 +6,7 @@
     class passwordHandler {
         
         //Pepper possibilities
-        private static $charUniverse = "abcdefghijklmnopqrstuvwxyz";
+        public static $charUniverse = "abcdefghijklmnopqrstuvwxyz";
         
         //Salt generator
         private static function generateSalt() {
