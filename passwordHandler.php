@@ -6,7 +6,11 @@
     class passwordHandler {
         
         //Pepper possibilities
-        public static $charUniverse = "abcdefghijklmnopqrstuvwxyz";
+        private static $charUniverse = "abcdefghijklmnopqrstuvwxyz";
+        
+        private static function setCharUniverse($charUniverseParam) {
+            self::$charUniverse = $charUniverseParam;
+        }
         
         //Salt generator
         private static function generateSalt() {
@@ -78,5 +82,5 @@
         }
         
     }
-    
+
 ?>
