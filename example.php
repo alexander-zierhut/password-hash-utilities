@@ -2,7 +2,7 @@
 
    include("passwordHandler.php");
 
-   //Set a cutom CharUniverse
+   //Set a custom CharUniverse
    passwordHandler::setCharUniverse("abcdefghijklmnopqrstuvwxyz");
 
   //Generate a new hash and salt for a password (min 3 chars)
