@@ -9,7 +9,7 @@
         private static $charUniverse = "abcdefghijklmnopqrstuvwxyz";
         
         //Set a custom charrUniverse
-        private static function setCharUniverse($charUniverseParam) {
+        public static function setCharUniverse($charUniverseParam) {
             self::$charUniverse = $charUniverseParam;
         }
         
