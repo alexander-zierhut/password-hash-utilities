@@ -1,33 +1,22 @@
 <?php
 
-    //passwordHandler by (ALZlper) Alexander Zierhut
-    //Web: alzlper.com
+    namespace ZubZet\Drivers\PasswordHash\PasswordHash;
 
-    class passwordHandler {
-        
-        //Pepper possibilities
-        private static $charUniverse = "abcdefghijklmnopqrstuvwxyz";
-        
-        //Set a custom charrUniverse
-        public static function setCharUniverse($charUniverseParam) {
-            self::$charUniverse = $charUniverseParam;
-        }
-        
-        //Salt generator
-        private static function generateSalt() {
-            return uniqid(mt_rand(), true);
-        }
-        
-        //Pepper generator using $charUniverse
-        private static function generatePepper() {
-            $randCharID = rand(0, strlen(self::$charUniverse) - 1);
-            return self::$charUniverse[$randCharID];
-        }
-        
-        //sha512 str function
-        private static function hashStr($str) {
-            return hash('sha512', $str);
-        }
+    use ZubZet\Drivers\PasswordHash\CharacterUniverse;
+
+    use ZubZet\Drivers\PasswordHash\Hash;
+    use ZubZet\Drivers\PasswordHash\Salt;
+    use ZubZet\Drivers\PasswordHash\Pepper;
+
+    use ZubZet\Drivers\PasswordHash\Exceptions\MissingParameter;
+    use ZubZet\Drivers\PasswordHash\Exceptions\UnmetInputRequirements;
+
+    abstract class PasswordHash {
+
+        use CharacterUniverse;
+        use Hash;
+        use Salt;
+        use Pepper;
         
         //Custom spagetti logic
         private static function customAlg($str) {
@@ -65,18 +54,18 @@
         }
         
         //PasswordHandler to generate a new hash and salt for a password
-        public static function createPassword($userInput) {
-            if (empty($userInput)) throw new Exception('Please specify the userInput parameter');
-            if (strlen($userInput) < 3) throw new Exception('A password must at least have 3 chars');
+        public static function createPassword(string $userInput) {
+            if (empty($userInput)) throw new MissingParameter('Please specify the userInput parameter');
+            if (strlen($userInput) < 3) throw new UnmetInputRequirements('A password must at least have 3 chars');
             $salt = self::generateSalt();
             return array("hash" => self::processStr(base64_encode($userInput) . $salt . self::generatePepper()), "salt" => $salt);
         }
         
         //PasswordHandler to check if a password is correct
-        public static function checkPassword($userInput, $hash, $salt) {
-            if (empty($userInput)) throw new Exception('Please specify the userInput parameter');
-            if (empty($hash)) throw new Exception('Please specify the hash parameter');
-            if (empty($salt)) throw new Exception('Please specify the salt parameter');
+        public static function checkPassword(string $userInput, string $hash, string $salt) {
+            if (empty($userInput)) throw new MissingParameter('Please specify the userInput parameter');
+            if (empty($hash)) throw new MissingParameter('Please specify the hash parameter');
+            if (empty($salt)) throw new MissingParameter('Please specify the salt parameter');
             if (strlen($userInput) < 3) return false;
             $pwInputOptions = self::generateCheckOptions(base64_encode($userInput), $salt);
             return in_array($hash, $pwInputOptions);
