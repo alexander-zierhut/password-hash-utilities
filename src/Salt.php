@@ -5,7 +5,7 @@
     abstract class Salt {
 
         //Salt generator
-        private static function generateSalt() {
+        public static function generate() {
             return hash("sha512", random_int(10000, 99999), true);
         }
         

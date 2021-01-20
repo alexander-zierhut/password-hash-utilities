@@ -2,7 +2,7 @@
 
     namespace ZubZet\Drivers\PasswordHash;
 
-    abstract class CharacterUniverse {
+    trait CharacterUniverse {
 
         /** The current character universe */
         private static array $characterUniverse;
@@ -29,15 +29,6 @@
                 self::$characterUniverse = range("a", "z");
             }
             return self::$characterUniverse;
-        }
-
-        /**
-         * Returns the current custom character universe as a string
-         *
-         * @return string
-         */
-        public static function __toString() {
-            return implode("", self::$characterUniverse);
         }
 
     }

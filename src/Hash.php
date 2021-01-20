@@ -2,10 +2,10 @@
 
     namespace ZubZet\Drivers\PasswordHash;
 
-    class Hash {
+    abstract class Hash {
 
         //sha512 str function
-        private static function hashStr($str) {
+        public static function hashStr($str) {
             return hash('sha512', $str);
         }
         

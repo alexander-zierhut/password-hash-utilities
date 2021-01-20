@@ -12,7 +12,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ZubZet\\Drivers\\": "PasswordHash/"
+            "ZubZet\\Drivers\\PasswordHash\\": "src/"
         }
     }
 }
