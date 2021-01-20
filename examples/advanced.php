@@ -1,17 +1,17 @@
 <?php
 
-    require_once __DIR__."/vendor/autoload.php";
+    require_once __DIR__."/../vendor/autoload.php";
 
     use ZubZet\Drivers\PasswordHash\PasswordHash;
 
     //Set a custom CharUniverse
     PasswordHash::setCharacterUniverse(range("a", "z"));
 
-    PasswordHash::setHashingAlgorithm(function($input) {
+    PasswordHash::setHashingAlgorithm("sha5125", function($input) {
         return hash('sha512', $input);
     });
 
-    PasswordHash::defineCustomLogic(function($input) {
+    PasswordHash::defineCustomLogic("0.9", function($input) {
         $input .= str_repeat(substr($input, 2), 2);
         $input = strrev($input);
         $key = $input;
@@ -25,13 +25,6 @@
         return base64_encode($result);
     });
 
-    //Generate a new hash and salt for a password (min 3 chars)
-    /*Returns: Array
-                (
-                    [hash] => string
-                    [salt] => string
-                )
-    */
     $pw = PasswordHash::createPassword("password123");
     var_dump($pw);
 

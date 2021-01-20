@@ -5,7 +5,7 @@
     abstract class Hash {
 
         //sha512 str function
-        public static function hashStr($str) {
+        public static function generate($str) {
             return hash('sha512', $str);
         }
         

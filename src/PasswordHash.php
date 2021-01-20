@@ -10,44 +10,59 @@
 
     use ZubZet\Drivers\PasswordHash\Exceptions\MissingParameter;
     use ZubZet\Drivers\PasswordHash\Exceptions\UnmetInputRequirements;
+    use ZubZet\Drivers\PasswordHash\Exceptions\WrongCharacterset;
 
     abstract class PasswordHash {
 
         use CharacterUniverse;
 
-        public static function setHashingAlgorithm(callable $HashingAlgorithm) {
-
+        private static function checkCharacterMap(string $parameter) {
+            $charList = ["_", "-", ".", ...range("a", "z"), ...range("0", "9")];
+            foreach(str_split(strtolower($parameter)) as $char) {
+                if(!in_array($char, $charList)) {
+                    throw new WrongCharacterset(implode("", $charList));
+                }
+            }
         }
 
-        public static function defineCustomLogic(callable $customLogic) {
-            
+        public static $hashingAlgorithms = [];
+        public static function setHashingAlgorithm(string $name, callable $hashingAlgorithm) {
+            self::checkCharacterMap($name);
+            self::$hashingAlgorithms[$name] = $hashingAlgorithm;
         }
 
-        //TODO: allow for passwords to be merged
+        public static $customLogics = [];
+        public static function defineCustomLogic(string $name, callable $customLogic) {
+            self::checkCharacterMap($name);
+            self::$hashingAlgorithms[$name] = $customLogic;
+        }
+
         //PasswordHandler to generate a new hash and salt for a password
-        public static function createPassword(string $userInput) {
-            if (empty($userInput)) throw new MissingParameter('Please specify the userInput parameter');
-            if (strlen($userInput) < 3) throw new UnmetInputRequirements('A password must at least have 3 chars');
+        public static function createPassword(string $userInput, array $options = []) {
+            if (empty($userInput)) throw new MissingParameter("userInput");
+            if (strlen($userInput) < 3) throw new UnmetInputRequirements("userInput");
             
-            // TODO: Allow for custom logic here
-
-            $userInput = Hash::hashStr($userInput);
             $salt = Salt::generate();
-            return [
-                "hash" => $userInput . $salt . Pepper::generate(),
+            $result = [
+                "hash" => Hash::generate($userInput . $salt . Pepper::generate()),
                 "salt" => $salt
             ];
+
+            if($options["mergedMode"] ?? false) return implode(";", $result);
+            return $result;
         }
         
         //PasswordHandler to check if a password is correct
+        //, bool $compactMode = true
         public static function checkPassword(string $userInput, string $hash, string $salt) {
-            if (empty($userInput)) throw new MissingParameter('Please specify the userInput parameter');
-            if (empty($hash)) throw new MissingParameter('Please specify the hash parameter');
-            if (empty($salt)) throw new MissingParameter('Please specify the salt parameter');
             if (strlen($userInput) < 3) return false;
+            if (empty($hash)) throw new MissingParameter('hash');
+            if (empty($salt)) throw new MissingParameter('salt');
 
-            $userInput = Hash::hashStr($userInput);
-            return in_array($hash, Pepper::generateAllOptions($userInput, $salt));
+            $hashOptions = array_map(function($hashOption) {
+                return Hash::generate($hashOption);
+            }, Pepper::generateAllOptions($userInput, $salt));
+            return in_array($hash, $hashOptions);
         }
         
     }

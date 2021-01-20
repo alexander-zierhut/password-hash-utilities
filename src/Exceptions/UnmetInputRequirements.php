@@ -2,10 +2,13 @@
 
     namespace ZubZet\Drivers\PasswordHash\Exceptions;
 
-    class UnmetInputRequirements extends \Exception {
+    use ZubZet\Drivers\PasswordHash\Exceptions\AbstractException;
+    use ZubZet\Drivers\PasswordHash\Exceptions\IException;
+
+    class UnmetInputRequirements extends AbstractException implements IException {
 
         public function errorMessage() {
-            return "User input '{$this->getMessage()}' does not meet requirements.";
+            return "Input '{$this->value}' does not meet requirements.";
         }
 
     }

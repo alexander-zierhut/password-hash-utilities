@@ -14,7 +14,7 @@
         public static function generateAllOptions(string $userInput, string $salt) {
             $passwordOptions = [];
             foreach(PasswordHash::getCharacterUniverse() as $pepper) {
-                $passwordOptions [] = $userInput . $salt . $pepper;
+                $passwordOptions[] = $userInput . $salt . $pepper;
             }
             return $passwordOptions;
         }
