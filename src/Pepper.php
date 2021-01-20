@@ -9,7 +9,16 @@
             $index = array_rand(PasswordHash::getCharacterUniverse());
             return PasswordHash::getCharacterUniverse()[$index];
         }
-        
+
+        //Function to generate all Pepper options
+        public static function generateAllOptions(string $userInput, string $salt) {
+            $passwordOptions = [];
+            foreach(PasswordHash::getCharacterUniverse() as $pepper) {
+                $passwordOptions [] = $userInput . $salt . $pepper;
+            }
+            return $passwordOptions;
+        }
+
     }
 
 ?>

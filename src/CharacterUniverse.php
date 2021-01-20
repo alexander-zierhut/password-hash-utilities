@@ -15,7 +15,7 @@
          * @param array|string $characterUniverseParam
          * @return void
          */
-        public function setCharacterUniverse($characterUniverseParam) {
+        public static function setCharacterUniverse($characterUniverseParam) {
             self::$characterUniverse = $characterUniverseParam;
         }
 
