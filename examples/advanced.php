@@ -2,7 +2,7 @@
 
     require_once __DIR__."/../vendor/autoload.php";
 
-    use ZubZet\Drivers\PasswordHash\PasswordHash;
+    use ZubZet\Utilities\PasswordHash\PasswordHash;
 
     //Set a custom CharUniverse
     PasswordHash::setCharacterUniverse(range("a", "z"));

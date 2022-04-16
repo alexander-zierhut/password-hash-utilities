@@ -1,6 +1,6 @@
 <?php
 
-    namespace ZubZet\Drivers\PasswordHash;
+    namespace ZubZet\Utilities\PasswordHash;
 
     trait CharacterUniverse {
 

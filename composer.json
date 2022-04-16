@@ -1,18 +1,18 @@
 {
-    "name": "zubzet/password-hash-driver",
+    "name": "zubzet/password-hash-utilities",
     "type": "li",
-    "license": "Apache-2.0",
+    "license": "GPL-3.0-or-later",
     "minimum-stability": "dev",
     "authors": [{
         "name": "Alexander Zierhut",
         "email": "alex@zierhut-it.de"
     }],
     "require": {
-        "php": "^7.0"
+        "php": ">=7.0"
     },
     "autoload": {
         "psr-4": {
-            "ZubZet\\Drivers\\PasswordHash\\": "src/"
+            "ZubZet\\Utilities\\PasswordHash\\": "src/"
         }
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-    namespace ZubZet\Drivers\PasswordHash\Exceptions;
+    namespace ZubZet\Utilities\PasswordHash\Exceptions;
 
-    use ZubZet\Drivers\PasswordHash\Exceptions\AbstractException;
-    use ZubZet\Drivers\PasswordHash\Exceptions\IException;
+    use ZubZet\Utilities\PasswordHash\Exceptions\AbstractException;
+    use ZubZet\Utilities\PasswordHash\Exceptions\IException;
 
     class UnmetInputRequirements extends AbstractException implements IException {
 

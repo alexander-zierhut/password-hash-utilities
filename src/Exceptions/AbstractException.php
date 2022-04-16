@@ -1,6 +1,6 @@
 <?php
 
-    namespace ZubZet\Drivers\PasswordHash\Exceptions;
+    namespace ZubZet\Utilities\PasswordHash\Exceptions;
 
     class AbstractException extends \Exception {
 

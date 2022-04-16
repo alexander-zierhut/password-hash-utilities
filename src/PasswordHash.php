@@ -1,16 +1,16 @@
 <?php
 
-    namespace ZubZet\Drivers\PasswordHash;
+    namespace ZubZet\Utilities\PasswordHash;
 
-    use ZubZet\Drivers\PasswordHash\CharacterUniverse;
+    use ZubZet\Utilities\PasswordHash\CharacterUniverse;
 
-    use ZubZet\Drivers\PasswordHash\Hash;
-    use ZubZet\Drivers\PasswordHash\Salt;
-    use ZubZet\Drivers\PasswordHash\Pepper;
+    use ZubZet\Utilities\PasswordHash\Hash;
+    use ZubZet\Utilities\PasswordHash\Salt;
+    use ZubZet\Utilities\PasswordHash\Pepper;
 
-    use ZubZet\Drivers\PasswordHash\Exceptions\MissingParameter;
-    use ZubZet\Drivers\PasswordHash\Exceptions\UnmetInputRequirements;
-    use ZubZet\Drivers\PasswordHash\Exceptions\WrongCharacterset;
+    use ZubZet\Utilities\PasswordHash\Exceptions\MissingParameter;
+    use ZubZet\Utilities\PasswordHash\Exceptions\UnmetInputRequirements;
+    use ZubZet\Utilities\PasswordHash\Exceptions\WrongCharacterset;
 
     abstract class PasswordHash {
 
