@@ -4,11 +4,14 @@
 
     abstract class Salt {
 
-        //Salt generator
-        public static function generate() {
-            return hash("sha512", random_int(100000000, 999999999), true);
+        // Salt generator
+        public static function generate($length = 32) {
+            return substr(
+                bin2hex(random_bytes($length)),
+                0, $length,
+            );
         }
-        
+
     }
 
 ?>

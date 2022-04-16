@@ -2,6 +2,8 @@
 
     namespace ZubZet\Utilities\PasswordHash;
 
+    use ZubZet\Utilities\PasswordHash\PermutationOption;
+
     abstract class Pepper {
 
         //Pepper generator using $charUniverse
@@ -14,7 +16,7 @@
         public static function generateAllOptions(string $userInput, string $salt) {
             $passwordOptions = [];
             foreach(PasswordHash::getCharacterUniverse() as $pepper) {
-                $passwordOptions[] = $userInput . $salt . $pepper;
+                $passwordOptions[] = new PermutationOption($userInput, $salt, $pepper);
             }
             return $passwordOptions;
         }

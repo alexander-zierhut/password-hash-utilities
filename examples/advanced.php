@@ -4,34 +4,56 @@
 
     use ZubZet\Utilities\PasswordHash\PasswordHash;
 
-    //Set a custom CharUniverse
+    // Set a custom CharUniverse
     PasswordHash::setCharacterUniverse(range("a", "z"));
 
-    PasswordHash::setHashingAlgorithm("sha5125", function($input) {
-        return hash('sha512', $input);
-    });
-
-    PasswordHash::defineCustomLogic("0.9", function($input) {
-        $input .= str_repeat(substr($input, 2), 2);
-        $input = strrev($input);
-        $key = $input;
-        $result = '';
-        for($i = 0; $i < strlen ($input); $i++) {
-            $char = substr($input, $i, 1);
-            $keychar = substr($key, ($i % strlen($key))-1, 1);
-            $char = chr(ord($char)+ord($keychar));
-            $result .= $char;
+    PasswordHash::setHashingAlgorithm(
+        "bcryptExpensive",
+        function($input) {
+            return password_hash($input, PASSWORD_BCRYPT, [
+                "cost" => 12
+            ]);
+        },
+        function($input, $hash) {
+            return password_verify($input, $hash);
         }
-        return base64_encode($result);
+    );
+
+    PasswordHash::defineCustomLogic("reverse", function($input, $salt, $pepper) {
+        $input .= $salt.$pepper;
+        return strrev($input);
     });
 
-    $pw = PasswordHash::createPassword("password123");
-    var_dump($pw);
+    $password = PasswordHash::create(
+        "password123",
+        hashingName: "bcryptExpensive",
+        customLogicName: "reverse",
+    );
 
-    //Check a password using user Input, hash and salt
-    //Returns: true for a correct password
-    //         false for an incorrect password
-    $check = PasswordHash::checkPassword("password123", $pw["hash"], $pw["salt"]);
+    $check = PasswordHash::check(
+        "password123",
+        $password->hash,
+        $password->salt,
+        $password->hashingName,
+        $hashingNameTarget = "bcrypt",
+        $password->customLogicName,
+        $customLogicNameTarget = "0.9",
+    );
+
+    // This will only be true if the password also matches
+    if($check->hasUpdate) {
+        // Replace
+        $password->hash;
+        $password->salt;
+        $password->hashingName;
+        $password->customLogicName;
+    }
+
+    if($check->matches) {
+        // Access granted
+    } else {
+        // Password is wrong
+    }
 
     var_dump($check);
 
