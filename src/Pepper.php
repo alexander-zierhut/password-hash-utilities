@@ -6,13 +6,14 @@
 
     abstract class Pepper {
 
-        //Pepper generator using $charUniverse
+        // Generate a pepper using the $charUniverse
         public static function generate() {
-            $index = array_rand(PasswordHash::getCharacterUniverse());
-            return PasswordHash::getCharacterUniverse()[$index];
+            $universe = PasswordHash::getCharacterUniverse();
+            $charOffset = random_int(0, count($universe) - 1);
+            return $universe[$charOffset];
         }
 
-        //Function to generate all Pepper options
+        // Generate all options after applying the pepper
         public static function generateAllOptions(string $userInput, string $salt) {
             $passwordOptions = [];
             foreach(PasswordHash::getCharacterUniverse() as $pepper) {

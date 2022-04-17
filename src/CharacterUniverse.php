@@ -4,25 +4,24 @@
 
     trait CharacterUniverse {
 
-        /** The current character universe */
+        // The current character universe
         private static array $characterUniverse;
 
         /**
-         * Set a custom character universe
-         * 
-         * Will be used to generate the pepper
-         * 
-         * @param array|string $characterUniverseParam
+         * Set a custom character universe This will be
+         * used to generate the pepper
+         *
+         * @param string[] $characterUniverseParam An array including characters that will be used
          * @return void
          */
-        public static function setCharacterUniverse($characterUniverseParam) {
+        public static function setCharacterUniverse(array $characterUniverseParam) {
             self::$characterUniverse = $characterUniverseParam;
         }
 
         /**
          * Get the current custom character universe
          *
-         * @return array
+         * @return string[] The character universe, if none exists a-z will be used
          */
         public static function getCharacterUniverse() : array {
             if(empty(self::$characterUniverse)) {

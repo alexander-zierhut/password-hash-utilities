@@ -4,6 +4,10 @@
 
     use ZubZet\Utilities\PasswordHash\StorablePassword;
 
+    /**
+     * A data model of a verification result. This is based on 
+     * the StorablePassword class.
+     */
     class VerificationResult extends StorablePassword {
         public function __construct(
             public bool $matches,

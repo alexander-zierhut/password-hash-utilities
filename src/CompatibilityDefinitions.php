@@ -6,6 +6,8 @@
 
     class CompatibilityDefinitions {
 
+        // This function adds support for the default hashing method
+        // recommended by this library
         public static function default() {
             PasswordHash::setHashingAlgorithm(
                 "bcrypt",
@@ -20,6 +22,8 @@
             );
         }
 
+        // This function adds support for the old algorithms used in
+        // the 0.9 version of this library.
         public static function addSupport09() {
             PasswordHash::setHashingAlgorithm("sha512", function($input) {
                 return hash('sha512', $input);

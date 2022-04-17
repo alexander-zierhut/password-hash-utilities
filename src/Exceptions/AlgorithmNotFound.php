@@ -5,10 +5,10 @@
     use ZubZet\Utilities\PasswordHash\Exceptions\IException;
     use ZubZet\Utilities\PasswordHash\Exceptions\AbstractException;
 
-    class HashingAlgorithmNotFound extends AbstractException implements IException {
+    class AlgorithmNotFound extends AbstractException implements IException {
 
         public function errorMessage() {
-            return "The hashing algorithm '{$this->value}' is not implemented.";
+            return "The algorithm '{$this->value}' is not implemented.";
         }
 
     }

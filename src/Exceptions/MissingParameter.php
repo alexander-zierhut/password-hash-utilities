@@ -10,7 +10,7 @@
         public function errorMessage() {
             return "The parameter '{$this->value}' is required and so has to be specified.";
         }
-        
+
     }
 
 ?>

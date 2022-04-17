@@ -4,7 +4,7 @@
 
     abstract class Salt {
 
-        // Salt generator
+        // Generate a cryptographically secure salt for a given length
         public static function generate($length = 32) {
             return substr(
                 bin2hex(random_bytes($length)),
